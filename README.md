@@ -1,20 +1,20 @@
 ```mermaid
 graph TD
-    A[Api Cadastro] --> B[ApiCadastroApplication]
-    A --> C[Controller]
-    A --> D[DTO]
-    A --> E[Model]
-    A --> F[Service]
-    A --> G[Repository]
-    A --> H[Exception]
-    A --> I[Infra]
-    A --> J[Response]
+    A[Api Cadastro] --> B[ApiCadastroApplication.java]
+    A --> C[Controller/]
+    A --> D[DTO/]
+    A --> E[Model/]
+    A --> F[Service/]
+    A --> G[Repository/]
+    A --> H[Exception/]
+    A --> I[Infra/]
+    A --> J[Response/]
 
-    H --> HA[IdNotFoundException]
-    H --> HB[ValidationException]
+    H --> HA[IdNotFoundException.java]
+    H --> HB[ValidationException.java]
 
-    I --> IA[GlobalExceptionHandler]
-    I --> IB[Security]
+    I --> IA[GlobalExceptionHandler.java]
+    I --> IB[Security/]
 
-    J --> JA[ApiResponse]
+    J --> JA[ApiResponse.java]
 ```
