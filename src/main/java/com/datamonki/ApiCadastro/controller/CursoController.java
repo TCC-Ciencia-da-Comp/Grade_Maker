@@ -1,6 +1,5 @@
 package com.datamonki.ApiCadastro.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +17,7 @@ import com.datamonki.ApiCadastro.service.CursoService;
 
 //Classe que representa o controller, responsavel pelas requisicoes de curso para a api
 @RestController
-@RequestMapping("/api/curso" )
+@RequestMapping("/api/curso")
 public class CursoController {
 	
 	@Autowired
