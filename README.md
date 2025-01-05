@@ -112,5 +112,20 @@ CREATE TABLE config (
     campo VARCHAR(255) NOT NULL
     valor INTEGER NOT NULL
 );
+-- ______________________________________
+
+INSERT INTO turno (descricao) VALUES
+('Matutino'),
+('Vespertino'),
+('Noturno');
+
+INSERT INTO dia_semana (descricao) VALUES
+('Segunda-feira'),
+('Terça-feira'),
+('Quarta-feira'),
+('Quinta-feira'),
+('Sexta-feira'),
+('Sábado'),
+('Domingo');
 
 ```
