@@ -22,7 +22,6 @@ public class CursoService {
     @Autowired
     private CursoRepository cursoRepository;
 
-
     private void verificar(CursoDto cursoDto){
 		List<String> messages = new ArrayList<>();
 		if (cursoDto.nome().isBlank()) {
@@ -46,7 +45,6 @@ public class CursoService {
 			throw new IdNotFoundException("Não foi possivel encontrar o curso com o nome de '" + nome + "', verifique e tente novamente"); 
 		}
 	}
-
 
     @Transactional
     public ResponseEntity<ApiResponse> create(CursoDto cursoDto){
