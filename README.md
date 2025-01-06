@@ -77,14 +77,16 @@ CREATE TABLE disciplina_curso (
 
 CREATE TABLE disponibilidade (
     id SERIAL PRIMARY KEY ,
-    turno INTEGER,
-    dia_semana INTEGER,
     semestre INTEGER,
     ano INTEGER,
+    id_dia_semana INTEGER,
     id_professor INTEGER,
+    id_turno INTEGER,
     id_disciplina INTEGER,
     FOREIGN KEY (id_professor) REFERENCES professor(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_disciplina) REFERENCES disciplina(id) ON DELETE CASCADE
+    FOREIGN KEY (id_disciplina) REFERENCES disciplina(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_dia_semana) REFERENCES dia_semana(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_turno) REFERENCES turno(id) ON DELETE CASCADE
 );
 
 CREATE TABLE grade (
@@ -103,13 +105,13 @@ CREATE TABLE grade (
 
 CREATE TABLE erros (
     id SERIAL PRIMARY KEY,
-    versao INTEGER NOT NULL
+    versao INTEGER NOT NULL,
     erros VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE config (
     id SERIAL PRIMARY KEY,
-    campo VARCHAR(255) NOT NULL
+    campo VARCHAR(255) NOT NULL,
     valor INTEGER NOT NULL
 );
 -- ______________________________________
@@ -120,12 +122,12 @@ INSERT INTO turno (descricao) VALUES
 ('Noturno');
 
 INSERT INTO dia_semana (descricao) VALUES
+('Domingo'),
 ('Segunda-feira'),
 ('Terça-feira'),
 ('Quarta-feira'),
 ('Quinta-feira'),
 ('Sexta-feira'),
-('Sábado'),
-('Domingo');
+('Sábado');
 
 ```
