@@ -30,4 +30,5 @@ public class DisciplinaCurso {
     @ManyToOne
     @JoinColumn(name = "id_disciplina", nullable = false)
     private Disciplina disciplina;
+    
 }

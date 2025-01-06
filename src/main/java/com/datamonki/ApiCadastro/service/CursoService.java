@@ -19,6 +19,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class CursoService {
+
     @Autowired
     private CursoRepository cursoRepository;
 
@@ -36,7 +37,7 @@ public class CursoService {
 
 	private void verificarId(Integer id) {
 		if (!cursoRepository.existsById(id)) {
-			throw new IdNotFoundException("Não foi possivel encontrar com o Id '" + id + "', verifique e tente novamente"); 
+			throw new IdNotFoundException("Não foi possivel encontrar curso com o Id '" + id + "', verifique e tente novamente"); 
 		}
 	}
 

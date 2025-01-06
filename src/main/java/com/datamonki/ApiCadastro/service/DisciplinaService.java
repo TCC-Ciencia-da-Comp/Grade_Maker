@@ -19,6 +19,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class DisciplinaService {
+
     @Autowired
     private DisciplinaRepository disciplinaRepository;
 
@@ -36,7 +37,7 @@ public class DisciplinaService {
 
     private void verificarId(Integer id) {
         if (!disciplinaRepository.existsById(id)) {
-            throw new IdNotFoundException("Não foi possivel encontrar com o Id '" + id + "', verifique e tente novamente"); 
+            throw new IdNotFoundException("Não foi possivel encontrar disciplina com o Id '" + id + "', verifique e tente novamente"); 
         }
     }
 
@@ -46,6 +47,7 @@ public class DisciplinaService {
         }
     }
 
+    
     @Transactional
     public ResponseEntity<ApiResponse> create(DisciplinaDto disciplinaDto){
         verificar(disciplinaDto);

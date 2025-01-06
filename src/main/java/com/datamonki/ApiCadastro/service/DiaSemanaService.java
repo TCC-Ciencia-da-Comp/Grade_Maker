@@ -18,9 +18,10 @@ public class DiaSemanaService {
     @Autowired
     private DiaSemanaRepository diaSemanaRepository;
     
+
     private void verificarId(Integer id) {
         if (!diaSemanaRepository.existsById(id)) {
-            throw new IdNotFoundException("Não foi possivel encontrar com o Id '" + id + "', verifique e tente novamente"); 
+            throw new IdNotFoundException("Não foi possivel encontrar Dia da Semana com o Id '" + id + "', verifique e tente novamente"); 
         }
     }
 

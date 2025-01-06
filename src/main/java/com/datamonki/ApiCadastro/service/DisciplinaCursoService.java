@@ -15,6 +15,8 @@ import com.datamonki.ApiCadastro.repository.DisciplinaCursoRepository;
 import com.datamonki.ApiCadastro.repository.DisciplinaRepository;
 import com.datamonki.ApiCadastro.response.ApiResponse;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class DisciplinaCursoService {
 
@@ -29,23 +31,23 @@ public class DisciplinaCursoService {
 
     private void verificarIdDisciplinaCurso(Integer id) {
         if (!disciplinaCursoRepository.existsById(id)) {
-            throw new IdNotFoundException("Não foi possivel encontrar com o Id '" + id + "', verifique e tente novamente"); 
+            throw new IdNotFoundException("Não foi possivel encontrar disciplina-curso com o Id '" + id + "', verifique e tente novamente"); 
         }
     }
 
     private void verificarIdDisciplina(Integer id) {
         if (!disciplinaRepository.existsById(id)) {
-            throw new IdNotFoundException("Não foi possivel encontrar com o Id '" + id + "', verifique e tente novamente"); 
+            throw new IdNotFoundException("Não foi possivel encontrar disciplina com o Id '" + id + "', verifique e tente novamente"); 
         }
     }
 
     private void verificarIdCurso(Integer id) {
         if (!cursoRepository.existsById(id)) {
-            throw new IdNotFoundException("Não foi possivel encontrar com o Id '" + id + "', verifique e tente novamente"); 
+            throw new IdNotFoundException("Não foi possivel encontrar curso com o Id '" + id + "', verifique e tente novamente"); 
         }
     }
 
-
+    @Transactional
     public ResponseEntity<ApiResponse> create(DisciplinaCursoDto DisciplinaCursoDto){
         verificarIdDisciplina(DisciplinaCursoDto.id_disciplina());
         verificarIdCurso(DisciplinaCursoDto.id_curso());
@@ -71,6 +73,7 @@ public class DisciplinaCursoService {
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Conexão entre Disciplina e Curso com o id '"+ id_disciplinaCurso +"' encontrado com sucesso\"", disciplinaCursos));
     }
 
+    @Transactional
     public ResponseEntity<ApiResponse> update(Integer id_disciplinaCurso,DisciplinaCursoDto DisciplinaCursoDto){
         verificarIdDisciplinaCurso(id_disciplinaCurso);
         verificarIdDisciplina(DisciplinaCursoDto.id_disciplina());
@@ -99,5 +102,4 @@ public class DisciplinaCursoService {
         disciplinaCursoRepository.deleteById(id_disciplinaCurso);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Conexão entre Disciplina e Curso com o id '"+ id_disciplinaCurso +"' foi deletado com sucesso\"", disciplinaCursos));
     }    
-
 }
