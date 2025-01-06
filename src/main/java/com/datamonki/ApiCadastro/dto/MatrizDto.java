@@ -1,5 +1,5 @@
 package com.datamonki.ApiCadastro.dto;
 
-public record MatrizDto(Integer id_turma, Integer id_diciplina) {
+public record MatrizDto(Integer id_turma, Integer id_disciplina) {
 
 }
