@@ -31,4 +31,5 @@ public class Matriz {
     @ManyToOne
     @JoinColumn(name = "id_disciplina", nullable = false)
     private Disciplina disciplina;
+    
 }

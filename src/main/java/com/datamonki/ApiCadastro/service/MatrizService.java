@@ -14,6 +14,8 @@ import com.datamonki.ApiCadastro.repository.MatrizRepository;
 import com.datamonki.ApiCadastro.repository.DisciplinaRepository;
 import com.datamonki.ApiCadastro.response.ApiResponse;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class MatrizService {
 
@@ -28,22 +30,23 @@ public class MatrizService {
 
     private void verificarIdMatriz(Integer id) {
         if (!matrizRepository.existsById(id)) {
-            throw new IdNotFoundException("Não foi possivel encontrar com o Id '" + id + "', verifique e tente novamente"); 
+            throw new IdNotFoundException("Não foi possivel encontrar matriz com o Id '" + id + "', verifique e tente novamente"); 
         }
     }
 
     private void verificarIdDisciplina(Integer id) {
         if (!disciplinaRepository.existsById(id)) {
-            throw new IdNotFoundException("Não foi possivel encontrar com o Id '" + id + "', verifique e tente novamente"); 
+            throw new IdNotFoundException("Não foi possivel encontrar disciplina com o Id '" + id + "', verifique e tente novamente"); 
         }
     }
 
     private void verificarIdTurma(Integer id) {
         if (!turmaRepository.existsById(id)) {
-            throw new IdNotFoundException("Não foi possivel encontrar com o Id '" + id + "', verifique e tente novamente"); 
+            throw new IdNotFoundException("Não foi possivel encontrar turma com o Id '" + id + "', verifique e tente novamente"); 
         }
     }
 
+    @Transactional
     public ResponseEntity<ApiResponse> create(MatrizDto matrizDto) {
         verificarIdDisciplina(matrizDto.id_disciplina());
         verificarIdTurma(matrizDto.id_turma());
@@ -66,7 +69,8 @@ public class MatrizService {
         Matriz matriz = matrizRepository.findById(id_matriz).get();
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Conexão entre Disciplina e Turma com o id '"+ id_matriz +"' encontrada com sucesso", matriz));
     }
-
+    
+    @Transactional
     public ResponseEntity<ApiResponse> update(Integer id_matriz, MatrizDto matrizDto) {
         verificarIdMatriz(id_matriz);
         verificarIdDisciplina(matrizDto.id_disciplina());
