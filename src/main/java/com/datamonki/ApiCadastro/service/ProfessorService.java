@@ -46,7 +46,7 @@ public class ProfessorService {
             throw new IdNotFoundException("Não foi possivel encontrar o professor com o nome de '" + nome + "', verifique e tente novamente"); 
         }
     }
-
+    
     
     @Transactional
     public ResponseEntity<ApiResponse> create(ProfessorDto professorDto){

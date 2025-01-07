@@ -33,6 +33,7 @@ public class Disponibilidade {
     @Max(2)
     private Integer semestre;
     
+    @Column
     private Integer ano;
 
     @ManyToOne

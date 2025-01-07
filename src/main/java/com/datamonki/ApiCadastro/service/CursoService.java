@@ -47,6 +47,7 @@ public class CursoService {
 		}
 	}
 
+    
     @Transactional
     public ResponseEntity<ApiResponse> create(CursoDto cursoDto){
         verificar(cursoDto);

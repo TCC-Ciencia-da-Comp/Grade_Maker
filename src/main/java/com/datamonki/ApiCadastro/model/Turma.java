@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,10 +34,12 @@ public class Turma {
     @Column
     private Integer ano;
 
-    @Column
-    private Integer id_curso;
+    @ManyToOne
+    @JoinColumn(name = "id_curso", nullable = false)
+    private Curso curso;
 
-    @Column
-    private Integer id_turno;
+    @ManyToOne
+    @JoinColumn(name = "id_turno", nullable = false)
+    private Turno turno;
 
 }
