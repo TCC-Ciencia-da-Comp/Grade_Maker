@@ -47,7 +47,19 @@ public class DisponibilidadeController {
 				return ResponseEntity.ok(new ApiResponse("Não foi possivel localizar Disponibilidades, tente novamente", null));
 			}
 		}
-	@DeleteMapping("/{idProfessor}")	
+	
+	@GetMapping("/professor/{idProfessor}")
+	public ResponseEntity<ApiResponse> getByidProfessor(@PathVariable Integer idProfessor){
+		try {
+			return disponibilidadeService.getByIdProfessor(idProfessor);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.ok(new ApiResponse("Não foi possivel localizar Disponibilidades pelo id do professor, tente novamente", null));
+		}
+	}
+	
+	
+	@DeleteMapping("/professor/{idProfessor}")	
 	public ResponseEntity<ApiResponse> deleteByIdProfessor(@PathVariable Integer idProfessor){
 		try {
 			return disponibilidadeService.deleteByIdProfessor(idProfessor);
