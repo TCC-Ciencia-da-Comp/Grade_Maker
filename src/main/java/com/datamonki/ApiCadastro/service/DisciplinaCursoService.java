@@ -47,6 +47,7 @@ public class DisciplinaCursoService {
         }
     }
 
+    
     @Transactional
     public ResponseEntity<ApiResponse> create(DisciplinaCursoDto DisciplinaCursoDto){
         verificarIdDisciplina(DisciplinaCursoDto.id_disciplina());

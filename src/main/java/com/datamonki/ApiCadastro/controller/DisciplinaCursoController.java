@@ -9,7 +9,7 @@ import com.datamonki.ApiCadastro.response.ApiResponse;
 import com.datamonki.ApiCadastro.service.DisciplinaCursoService;
 
 @RestController
-@RequestMapping("/api/disciplina-curso")
+@RequestMapping("/api/disciplina_curso")
 public class DisciplinaCursoController {
     
     @Autowired

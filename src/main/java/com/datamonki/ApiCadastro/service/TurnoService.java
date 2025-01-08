@@ -24,6 +24,7 @@ public class TurnoService {
         }
     }
 
+    
     public ResponseEntity<ApiResponse> getAll(){
 
         List<Turno> turnos = turnoRepository.findAll();

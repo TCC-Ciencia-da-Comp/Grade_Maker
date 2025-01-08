@@ -24,43 +24,36 @@ public class ProfessorController {
 	
 	@PostMapping
 	public ResponseEntity<ApiResponse> create(@RequestBody ProfessorDto professorDto){
-
 		return professorService.create(professorDto);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ApiResponse> getById(@PathVariable Integer id){
-
 		return professorService.getById(id);
 	}
 	
 	@GetMapping
 	public ResponseEntity<ApiResponse> getAll(){ 
-
 		return professorService.getAll();
 	}
 	
 	@GetMapping("/nome/{nome}")
 	public ResponseEntity<ApiResponse> getByNome(@PathVariable String nome) {
-
 		return professorService.getByNome(nome);
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<ApiResponse> delete(@PathVariable Integer id){
-
 		return professorService.deleteById(id);
 	}
 	
 	@DeleteMapping
 	public ResponseEntity<ApiResponse> delete(){
-
 		return professorService.deleteAll();
 	}
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<ApiResponse> update(@PathVariable Integer id, @RequestBody ProfessorDto professorDto){
-
 		return professorService.update(id, professorDto);
 	}
 }

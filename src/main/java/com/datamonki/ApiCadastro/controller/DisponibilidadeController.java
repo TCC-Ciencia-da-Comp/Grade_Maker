@@ -62,5 +62,4 @@ public class DisponibilidadeController {
 			return ResponseEntity.internalServerError().body(new ApiResponse("Não foi possivel deletar Disponibilidade, tente novamente", null));
 		}
 	}
-	
 }
