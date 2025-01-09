@@ -48,20 +48,20 @@ public class DisponibilidadeService {
 	private void verificar(DisponibilidadeDto disponibilidadeDto) {
 		List<String> messages = new ArrayList<String>();
 
-		if(!professorRepository.existsById(disponibilidadeDto.id_professor())){
-			messages.add("Não há professor registrado com o id:"+ disponibilidadeDto.id_professor() + " verifique e tente novamente");
+		if(!professorRepository.existsById(disponibilidadeDto.idProfessor())){
+			messages.add("Não há professor registrado com o id:"+ disponibilidadeDto.idProfessor() + " verifique e tente novamente");
 		}
-		else if(!disciplinaRepository.existsById(disponibilidadeDto.id_disciplina())) {
-			messages.add("Não há disciplina registrada com o id:"+ disponibilidadeDto.id_disciplina() + " verifique e tente novamente");
+		else if(!disciplinaRepository.existsById(disponibilidadeDto.idDisciplina())) {
+			messages.add("Não há disciplina registrada com o id:"+ disponibilidadeDto.idDisciplina() + " verifique e tente novamente");
 		}
-		else if(!turnoRepository.existsById(disponibilidadeDto.id_turno())) {
-			messages.add("Não há turno registrado com o id:"+ disponibilidadeDto.id_turno() + " verifique e tente novamente");
+		else if(!turnoRepository.existsById(disponibilidadeDto.idTurno())) {
+			messages.add("Não há turno registrado com o id:"+ disponibilidadeDto.idTurno() + " verifique e tente novamente");
 		}
-		else if(!diaSemanaRepository.existsById(disponibilidadeDto.id_dia_semana())) {
-			messages.add("Não há dia da semana registrado com o id:"+ disponibilidadeDto.id_dia_semana() + " verifique e tente novamente");
+		else if(!diaSemanaRepository.existsById(disponibilidadeDto.idDiaSemana())) {
+			messages.add("Não há dia da semana registrado com o id:"+ disponibilidadeDto.idDiaSemana() + " verifique e tente novamente");
 		}
-		else if(disponibilidadeRepository.verifyRepeticao(disponibilidadeDto.id_professor(), disponibilidadeDto.id_dia_semana(), 
-				disponibilidadeDto.id_turno(), disponibilidadeDto.semestre(), disponibilidadeDto.ano())) {
+		else if(disponibilidadeRepository.verifyRepeticao(disponibilidadeDto.idProfessor(), disponibilidadeDto.idDiaSemana(), 
+				disponibilidadeDto.idTurno(), disponibilidadeDto.semestre(), disponibilidadeDto.ano())) {
 			messages.add("Disponibilidade já registrada");
 		}
 		else if(disponibilidadeDto.semestre() < 1 || disponibilidadeDto.semestre() > 2) {
@@ -79,12 +79,12 @@ public class DisponibilidadeService {
 		verificar(disponibilidadeDto);
 		
 		Disponibilidade disponibilidade = new Disponibilidade();
-		disponibilidade.setProfessor(professorRepository.findById(disponibilidadeDto.id_professor()).get());
-		disponibilidade.setDiaSemana(diaSemanaRepository.findById(disponibilidadeDto.id_dia_semana()).get());
-		disponibilidade.setTurno(turnoRepository.findById(disponibilidadeDto.id_turno()).get());
+		disponibilidade.setProfessor(professorRepository.findById(disponibilidadeDto.idProfessor()).get());
+		disponibilidade.setDiaSemana(diaSemanaRepository.findById(disponibilidadeDto.idDiaSemana()).get());
+		disponibilidade.setTurno(turnoRepository.findById(disponibilidadeDto.idTurno()).get());
 		disponibilidade.setSemestre(disponibilidadeDto.semestre());
 		disponibilidade.setAno(disponibilidadeDto.ano());
-		disponibilidade.setDisciplina(disciplinaRepository.findById(disponibilidadeDto.id_disciplina()).get());
+		disponibilidade.setDisciplina(disciplinaRepository.findById(disponibilidadeDto.idDisciplina()).get());
 		disponibilidadeRepository.save(disponibilidade);
 	
 		return ResponseEntity.ok(new ApiResponse("Disponibilidade cadastrada com sucesso", disponibilidade));
@@ -95,10 +95,15 @@ public class DisponibilidadeService {
 		return ResponseEntity.ok(new ApiResponse("Sucesso! Todas as disponibilidades retornadas.", disponibilidades));
 	}
 	
-	public ResponseEntity<ApiResponse> deleteByIdProfessor(Integer id_professor){
-		verificarProfessorId(id_professor);
-		if (disponibilidadeRepository.verifyDisponibilidadeProfessor(id_professor)){
-			disponibilidadeRepository.deleteByIdProfessor(id_professor);
+	public ResponseEntity<ApiResponse> getByIdProfessor(Integer idProfessor){
+		List<Disponibilidade> disponibilidades = disponibilidadeRepository.findByIdProfessor(idProfessor);
+		return ResponseEntity.ok(new ApiResponse("Sucesso! Todas as disponibilidades retornadas.", disponibilidades));
+	}
+	
+	public ResponseEntity<ApiResponse> deleteByIdProfessor(Integer idProfessor){
+		verificarProfessorId(idProfessor);
+		if (disponibilidadeRepository.verifyDisponibilidadeProfessor(idProfessor)){
+			disponibilidadeRepository.deleteByIdProfessor(idProfessor);
 
 			return ResponseEntity.ok(new ApiResponse("Disponibilidades deletadas com sucesso", null));
 		}

@@ -56,7 +56,7 @@ public class CursoService {
         curso.setNome(cursoDto.nome());
 
         cursoRepository.save(curso);
-		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Curso cadastrado com sucesso", curso));
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Curso cadastrado com sucesso", cursoDto));
     }
 
     public ResponseEntity<ApiResponse> getAll(){
@@ -87,15 +87,16 @@ public class CursoService {
         curso.setId(id_curso);
         curso.setNome(cursoDto.nome());
         cursoRepository.save(curso);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Curso com o id '" + id_curso + "' atualizado com sucesso", curso));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Curso com o id '" + id_curso + "' atualizado com sucesso", cursoDto));
     }
 
     public ResponseEntity<ApiResponse> deleteById(Integer id_curso){
         verificarId(id_curso);
 
         Curso curso = cursoRepository.findById(id_curso).get();
+        CursoDto cursoDto = new CursoDto(curso.getNome());
         cursoRepository.deleteById(id_curso);
-        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Curso com o id '"+ id_curso +"' foi deletado com sucesso", curso));
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Curso com o id '"+ id_curso +"' foi deletado com sucesso", cursoDto));
     }
 
     public ResponseEntity<ApiResponse> deleteAll(){
@@ -103,4 +104,7 @@ public class CursoService {
         cursoRepository.deleteAll();
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Todos os cursos foram deletados com sucesso", cursos));
     }
+    
+
+    
 }

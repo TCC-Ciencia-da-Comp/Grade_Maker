@@ -33,8 +33,8 @@ public interface DisponibilidadeRepository extends JpaRepository<Disponibilidade
                             Integer idProfessor, @Param("idDiaSemana") Integer idDiaSemana,
                             @Param("idTurno") Integer idTurno, @Param("semestre") Integer semestre, @Param("ano") Integer ano);
 
-    @Query (value = "SELECT * FROM  disponibilidade WHERE professor_id=:professorId", nativeQuery = true)
-    List<DisponibilidadeDto> findByIdProfessor(@Param("professorId") Integer professorId);
+    @Query (value = "SELECT * FROM  disponibilidade WHERE id_professor=:idProfessor", nativeQuery = true)
+    List<Disponibilidade> findByIdProfessor(@Param("idProfessor") Integer idProfessor);
 
     
     @Modifying
