@@ -103,4 +103,7 @@ public class CursoService {
         cursoRepository.deleteAll();
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Todos os cursos foram deletados com sucesso", cursos));
     }
+    
+
+    
 }
