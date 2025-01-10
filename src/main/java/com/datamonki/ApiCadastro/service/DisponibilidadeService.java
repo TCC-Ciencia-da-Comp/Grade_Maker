@@ -131,4 +131,19 @@ public class DisponibilidadeService {
 
 		return ResponseEntity.ok(new ApiResponse("Sem disponibilidades cadastradas", null));
 	}
+	
+	public ResponseEntity<ApiResponse> deleteByIdProfessorAnoSemestre(Integer idProfessor, Integer semestre, Integer ano){
+		verificarProfessorId(idProfessor);
+		
+		if (disponibilidadeRepository.verifyDisponibilidadeProfessor(idProfessor)){
+			disponibilidadeRepository.deleteByIdProfessorAnoSem(idProfessor, ano, semestre);
+
+			return ResponseEntity.ok(new ApiResponse("Disponibilidades deletadas com sucesso", null));
+		}
+
+		return ResponseEntity.ok(new ApiResponse("Sem disponibilidades cadastradas", null));
+	}
+	
+	
+	
 }

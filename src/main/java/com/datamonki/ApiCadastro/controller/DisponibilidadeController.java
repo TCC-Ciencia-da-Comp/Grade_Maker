@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datamonki.ApiCadastro.dto.DisponibilidadeDto;
@@ -17,6 +18,8 @@ import com.datamonki.ApiCadastro.exceptions.IdNotFoundException;
 import com.datamonki.ApiCadastro.exceptions.ValidationException;
 import com.datamonki.ApiCadastro.response.ApiResponse;
 import com.datamonki.ApiCadastro.service.DisponibilidadeService;
+
+import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/api/disponibilidade")
@@ -89,4 +92,22 @@ public class DisponibilidadeController {
 			return ResponseEntity.internalServerError().body(new ApiResponse("Não foi possivel deletar Disponibilidade, tente novamente", null));
 		}
 	}
+	
+	@DeleteMapping("/professor")	
+	public ResponseEntity<ApiResponse> deleteByIdProfessorAnoSemestre(@RequestParam("idProfessor") Integer idProfessor,
+			@RequestParam("ano") Integer ano, @RequestParam("semestre") Integer semestre){
+		try {
+			return disponibilidadeService.deleteByIdProfessorAnoSemestre(idProfessor, semestre, ano);
+		} catch (IdNotFoundException e) {
+			e.printStackTrace();
+			return ResponseEntity.internalServerError().body(new ApiResponse(e.getMessage(), null));
+		} catch (ValidationException e) {
+			e.printStackTrace();
+			return ResponseEntity.internalServerError().body(new ApiResponse(e.getMessage(), null));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.internalServerError().body(new ApiResponse("Não foi possivel deletar Disponibilidade, tente novamente", null));
+		}
+	}
+	
 }

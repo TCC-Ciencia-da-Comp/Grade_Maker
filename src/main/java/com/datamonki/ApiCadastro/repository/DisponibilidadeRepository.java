@@ -45,6 +45,14 @@ public interface DisponibilidadeRepository extends JpaRepository<Disponibilidade
     void deleteByIdProfessor(@Param("idProfessor") Integer idProfessor);
 
     
+    
+    @Modifying
+    @Transactional
+    @Query (value = "DELETE FROM  disponibilidade WHERE id_professor=:idProfessor AND semestre=:semestre AND ano=:ano", nativeQuery = true)
+    void deleteByIdProfessorAnoSem(@Param("idProfessor") Integer idProfessor, @Param("ano") Integer ano, @Param("semestre") Integer semestre);
+
+    
+    
     @Query(value = "SELECT d.id_professor, d.id_dia_semana, d.id_turno, d.semestre, d.ano " +
         "FROM disponibilidade d " +
         "WHERE d.id_professor =:idProfessor", nativeQuery = true)
