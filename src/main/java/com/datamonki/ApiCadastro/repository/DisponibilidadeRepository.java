@@ -28,10 +28,12 @@ public interface DisponibilidadeRepository extends JpaRepository<Disponibilidade
             value = "SELECT CASE WHEN COUNT (*) > 0 THEN  true ELSE false END " +
                     " FROM disponibilidade"  +
                     " WHERE id_professor=:idProfessor AND id_dia_semana=:idDiaSemana AND id_turno=:idTurno " +
-                    " AND semestre=:semestre AND ano=:ano", nativeQuery = true)
+                    " AND semestre=:semestre AND ano=:ano AND id_disciplina =:idDisciplina", nativeQuery = true)
     Boolean verifyRepeticao(@Param("idProfessor")
                             Integer idProfessor, @Param("idDiaSemana") Integer idDiaSemana,
-                            @Param("idTurno") Integer idTurno, @Param("semestre") Integer semestre, @Param("ano") Integer ano);
+                            @Param("idTurno") Integer idTurno,
+                            @Param("semestre") Integer semestre, @Param("ano") Integer ano, @Param("idDisciplina") Integer idDisciplina
+                            );
 
     @Query (value = "SELECT * FROM  disponibilidade WHERE id_professor=:idProfessor", nativeQuery = true)
     List<Disponibilidade> findByIdProfessor(@Param("idProfessor") Integer idProfessor);

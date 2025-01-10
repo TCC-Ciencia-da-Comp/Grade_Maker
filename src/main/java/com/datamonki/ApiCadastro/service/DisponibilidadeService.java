@@ -61,7 +61,7 @@ public class DisponibilidadeService {
 			messages.add("Não há dia da semana registrado com o id:"+ disponibilidadeDto.idDiaSemana() + " verifique e tente novamente");
 		}
 		else if(disponibilidadeRepository.verifyRepeticao(disponibilidadeDto.idProfessor(), disponibilidadeDto.idDiaSemana(), 
-				disponibilidadeDto.idTurno(), disponibilidadeDto.semestre(), disponibilidadeDto.ano())) {
+				disponibilidadeDto.idTurno(), disponibilidadeDto.semestre(), disponibilidadeDto.ano(), disponibilidadeDto.idDisciplina())) {
 			messages.add("Disponibilidade já registrada");
 		}
 		else if(disponibilidadeDto.semestre() < 1 || disponibilidadeDto.semestre() > 2) {
