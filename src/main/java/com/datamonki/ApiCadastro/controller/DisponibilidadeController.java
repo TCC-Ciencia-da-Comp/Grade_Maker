@@ -1,5 +1,7 @@
 package com.datamonki.ApiCadastro.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +30,19 @@ public class DisponibilidadeController {
 	public ResponseEntity<ApiResponse> save(@RequestBody DisponibilidadeDto disponibilidadeDto) {
 			try {
 				return disponibilidadeService.save(disponibilidadeDto);
+			} catch (ValidationException e) {
+				e.printStackTrace();
+				return ResponseEntity.internalServerError().body(new ApiResponse(e.getMessage(), null));
+			} catch (Exception e) {
+				e.printStackTrace();
+				return ResponseEntity.internalServerError().body(new ApiResponse("Não foi possivel criar Disponibilidade, tente novamente", null));
+			}
+		}
+	//Faz a requisicao para criar uma disponibilidade
+	@PostMapping("/lista")
+	public ResponseEntity<ApiResponse> saveAll(@RequestBody List<DisponibilidadeDto>  disponibilidadesDto) {
+			try {
+				return disponibilidadeService.saveAll(disponibilidadesDto);
 			} catch (ValidationException e) {
 				e.printStackTrace();
 				return ResponseEntity.internalServerError().body(new ApiResponse(e.getMessage(), null));

@@ -89,6 +89,27 @@ public class DisponibilidadeService {
 	
 		return ResponseEntity.ok(new ApiResponse("Disponibilidade cadastrada com sucesso", disponibilidade));
 	}
+
+	@Transactional
+	public ResponseEntity<ApiResponse> saveAll(List<DisponibilidadeDto> disponibilidadesDto){
+		List<Disponibilidade> disponibilidades = new ArrayList<Disponibilidade>();
+		
+		for (DisponibilidadeDto dto: disponibilidadesDto) {
+			verificar(dto);
+			Disponibilidade disponibilidade = new Disponibilidade();
+			disponibilidade.setProfessor(professorRepository.findById(dto.idProfessor()).get());
+			disponibilidade.setDiaSemana(diaSemanaRepository.findById(dto.idDiaSemana()).get());
+			disponibilidade.setTurno(turnoRepository.findById(dto.idTurno()).get());
+			disponibilidade.setSemestre(dto.semestre());
+			disponibilidade.setAno(dto.ano());
+			disponibilidade.setDisciplina(disciplinaRepository.findById(dto.idDisciplina()).get());
+			disponibilidades.add(disponibilidade);
+		}
+		disponibilidadeRepository.saveAll(disponibilidades);
+		
+		return ResponseEntity.ok(new ApiResponse("Disponibilidade cadastrada com sucesso", disponibilidades));
+	}
+	
 	
 	public ResponseEntity<ApiResponse> getAll(){
 		List<Disponibilidade> disponibilidades = disponibilidadeRepository.findAll();
