@@ -46,8 +46,6 @@ public class UsuarioService {
 
 	public ResponseEntity<ApiResponse> save (UsuarioDto usuarioDto){
 		verificarUsuario(usuarioDto);
-		Role acessoInicial = new Role("ACESSO_INICIAL");
-		Set<Role> roles = Collections.singleton(acessoInicial);
 		String senhaCodificada = passwordEncoder.encode(usuarioDto.password());
 		Usuario usuario = new Usuario();
 		usuario.setUsername(usuarioDto.userName());

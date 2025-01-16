@@ -2,6 +2,7 @@ package com.datamonki.ApiCadastro.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.datamonki.ApiCadastro.service.CursoService;
 
 //Classe que representa o controller, responsavel pelas requisicoes de curso para a api
 @RestController
+@PreAuthorize("hasAnyAuthority('ACESSO_ADMIN')")
 @RequestMapping("/api/curso")
 public class CursoController {
 	

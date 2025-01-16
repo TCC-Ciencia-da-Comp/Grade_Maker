@@ -19,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,21 +38,23 @@ public class Usuario implements UserDetails{
     private String password;
     
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuario_roles") // Tabela intermediária gerada automaticamente
-    private Set<Role> roles = new HashSet<>();
+    @JoinTable(name = "usuario_roles") // Apenas define o nome da tabela intermediária
+    private Set<Role> role = new HashSet<>();
+
     
     public Usuario(String username, String password, Set<Role> roles) {
         this.username = username;
         this.password = password;
-        this.roles = roles;
+        this.role = roles;
     }
 
     // Getters e Setters omitidos para brevidade
     
     // Converte os papéis (roles) em GrantedAuthority
     @Override
+    @Transactional
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
+        return role.stream()
                 .map(role -> (GrantedAuthority) () -> role.getName())
                 .collect(Collectors.toSet());
     }
