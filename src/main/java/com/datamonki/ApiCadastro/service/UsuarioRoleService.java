@@ -50,7 +50,17 @@ public class UsuarioRoleService {
 		Usuario usuario = usuarioRepository.findById(dto.usuarioId()).get();
 		Role role =  roleRepository.findById(dto.roleId()).get();
 		usuario.getRole().add(role);
-		return ResponseEntity.ok(new ApiResponse("Usuário cadastrado com sucesso", usuario.getUsername()));
+		return ResponseEntity.ok(new ApiResponse("Acesso concedido com sucesso", usuario.getUsername()));
+	}
+	
+	//Uma maneira diferente de remover um elemento da tabela intermediária com spring
+	@Transactional
+    public ResponseEntity<ApiResponse> removerRoleDoUsuario(UsuarioRoleDto dto) {
+		verificar(dto);
+		Usuario usuario = usuarioRepository.findById(dto.usuarioId()).get();
+		Role role =  roleRepository.findById(dto.roleId()).get();
+		usuario.getRole().remove(role);
+		return ResponseEntity.ok(new ApiResponse("Acesso removido com sucesso", usuario.getUsername()));
 	}
 	
 	
