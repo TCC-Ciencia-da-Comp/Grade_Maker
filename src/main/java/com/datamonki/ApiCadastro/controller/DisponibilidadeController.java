@@ -22,7 +22,7 @@ import com.datamonki.ApiCadastro.service.DisponibilidadeService;
 import jakarta.websocket.server.PathParam;
 
 @RestController
-@RequestMapping("/api/disponibilidade")
+@RequestMapping("/disponibilidade")
 public class DisponibilidadeController {
 	
 	@Autowired

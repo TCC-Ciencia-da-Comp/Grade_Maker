@@ -16,7 +16,7 @@ import com.datamonki.ApiCadastro.response.ApiResponse;
 import com.datamonki.ApiCadastro.service.DisciplinaService;
 
 @RestController
-@RequestMapping("/api/disciplina")
+@RequestMapping("/disciplina")
 public class DisciplinaController {
     
     @Autowired
