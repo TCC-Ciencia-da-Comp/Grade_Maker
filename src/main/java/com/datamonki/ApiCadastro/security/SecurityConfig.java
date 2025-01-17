@@ -23,18 +23,18 @@ public class SecurityConfig {
 	}
 
 	@Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**", "/public/**").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN") // Somente ADMIN acessa
-                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") // USER e ADMIN acessam
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    http
+	       .csrf(csrf -> csrf.disable()) // Forma correta para habilitar o CSRF
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers("/auth/**", "/public/**").permitAll()
+	            .requestMatchers("/admin/**").hasRole("ADMIN")
+	            .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+	            .anyRequest().authenticated()
+	        )
+	        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+	    return http.build();
+	}
 
     @Bean
     public PasswordEncoder passwordEncoder() {
