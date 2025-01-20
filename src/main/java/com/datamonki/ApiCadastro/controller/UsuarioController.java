@@ -31,7 +31,6 @@ public class UsuarioController {
 				e.printStackTrace();
 				return ResponseEntity.internalServerError().body(new ApiResponse("Não foi possivel cadastrar o usuário, tente novamente, tente novamente", null));
 			}
-		}
-	
+		}	
 	
 }
