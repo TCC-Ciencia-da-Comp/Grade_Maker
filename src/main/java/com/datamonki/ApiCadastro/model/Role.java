@@ -23,11 +23,9 @@ public class Role {
 	private String name;
 	private String descricao;
 
-	
 	public Role(String name) {
 		super();
 		this.name = name;
 	}
-	
-	
+
 }

@@ -107,8 +107,7 @@ public class TurmaService {
         verificarIdTurno(turmaDto.id_turno());
         verificar(turmaDto);
 
-        Turma turma = new Turma();
-        turma.setId(id_turma);
+        Turma turma = turmaRepository.findById(id_turma).get();
         turma.setNome(turmaDto.nome());
         turma.setSemestre(turmaDto.semestre());
         turma.setAno(turmaDto.ano());
@@ -131,5 +130,21 @@ public class TurmaService {
         List<Turma> turmas = turmaRepository.findAll();
         turmaRepository.deleteAll();
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Todas as Turmas foram deletadas com sucesso", turmas));        
+    }
+
+    public ResponseEntity<ApiResponse> findByIdCurso(Integer id_curso) {
+        verificarIdCurso(id_curso);
+        
+        List<Turma> turmas = turmaRepository.findByCursoId(id_curso);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Lista de turmas do curso com id '" + id_curso + "' encontradas com sucesso", turmas));
+    }
+
+    @Transactional
+    public ResponseEntity<ApiResponse> deleteByIdCurso(Integer id_curso) {
+        verificarIdCurso(id_curso);
+        
+        List<Turma> turmas = turmaRepository.findByCursoId(id_curso);
+        turmaRepository.deleteByCursoId(id_curso);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Todas as turmas do curso com id '" + id_curso + "' foram deletadas com sucesso", turmas));
     }
 }

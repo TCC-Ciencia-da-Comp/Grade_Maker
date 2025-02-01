@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.datamonki.ApiCadastro.exceptions.IdNotFoundException;
 import com.datamonki.ApiCadastro.exceptions.ValidationException;
 import com.datamonki.ApiCadastro.response.ApiResponse;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import io.jsonwebtoken.JwtException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.access.AccessDeniedException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler  {
@@ -49,5 +53,35 @@ public class GlobalExceptionHandler  {
     public ResponseEntity<ApiResponse> RuntimeException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).
         body(new ApiResponse(e.getMessage(), null));
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ApiResponse> UsernameNotFoundException(UsernameNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(new ApiResponse(e.getMessage(), null));
+    }
+
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<ApiResponse> JwtException(JwtException e){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            .body(new ApiResponse("Token inválido ou expirado", null));
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiResponse> AuthenticationException(AuthenticationException e){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            .body(new ApiResponse("Falha na autenticação: " + e.getMessage(), null));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiResponse> AccessDeniedException(AccessDeniedException e){
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+            .body(new ApiResponse("Acesso negado: " + e.getMessage(), null));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse> Exception(Exception e){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(new ApiResponse("Erro interno do servidor: " + e.getMessage(), null));
     }
 }

@@ -12,14 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.datamonki.ApiCadastro.dto.DisponibilidadeDto;
-import com.datamonki.ApiCadastro.exceptions.IdNotFoundException;
-import com.datamonki.ApiCadastro.exceptions.ValidationException;
 import com.datamonki.ApiCadastro.response.ApiResponse;
 import com.datamonki.ApiCadastro.service.DisponibilidadeService;
-
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/disponibilidade")
@@ -30,84 +27,41 @@ public class DisponibilidadeController {
 	
 	//Faz a requisicao para criar uma disponibilidade
 	@PostMapping
+	@PreAuthorize("hasAnyAuthority('ACESSO_ADMIN')")
 	public ResponseEntity<ApiResponse> save(@RequestBody DisponibilidadeDto disponibilidadeDto) {
-			try {
-				return disponibilidadeService.save(disponibilidadeDto);
-			} catch (ValidationException e) {
-				e.printStackTrace();
-				return ResponseEntity.internalServerError().body(new ApiResponse(e.getMessage(), null));
-			} catch (Exception e) {
-				e.printStackTrace();
-				return ResponseEntity.internalServerError().body(new ApiResponse("Não foi possivel criar Disponibilidade, tente novamente", null));
-			}
-		}
-	//Faz a requisicao para criar uma disponibilidade
-	@PostMapping("/lista")
-	public ResponseEntity<ApiResponse> saveAll(@RequestBody List<DisponibilidadeDto>  disponibilidadesDto) {
-			try {
-				return disponibilidadeService.saveAll(disponibilidadesDto);
-			} catch (ValidationException e) {
-				e.printStackTrace();
-				return ResponseEntity.internalServerError().body(new ApiResponse(e.getMessage(), null));
-			} catch (Exception e) {
-				e.printStackTrace();
-				return ResponseEntity.internalServerError().body(new ApiResponse("Não foi possivel criar Disponibilidade, tente novamente", null));
-			}
-		}
-		 
-	//Get de todas as disponbilidades cadastradas 	
-	@GetMapping 
-	public ResponseEntity<ApiResponse> getAll(){
-			try {
-				return disponibilidadeService.getAll();
-			} catch (Exception e) {
-				e.printStackTrace();
-				return ResponseEntity.ok(new ApiResponse("Não foi possivel localizar Disponibilidades, tente novamente", null));
-			}
-		}
-	
-	@GetMapping("/professor/{idProfessor}")
-	public ResponseEntity<ApiResponse> getByidProfessor(@PathVariable Integer idProfessor){
-		try {
-			return disponibilidadeService.getByIdProfessor(idProfessor);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.ok(new ApiResponse("Não foi possivel localizar Disponibilidades pelo id do professor, tente novamente", null));
-		}
+		return disponibilidadeService.save(disponibilidadeDto);
 	}
 	
+	//Faz a requisicao para criar uma disponibilidade
+	@PostMapping("/lista")
+	@PreAuthorize("hasAnyAuthority('ACESSO_ADMIN')")
+	public ResponseEntity<ApiResponse> saveAll(@RequestBody List<DisponibilidadeDto> disponibilidadesDto) {
+		return disponibilidadeService.saveAll(disponibilidadesDto);
+	}
+	
+	//Get de todas as disponbilidades cadastradas 	
+	@GetMapping 
+	public ResponseEntity<ApiResponse> getAll() {
+		return disponibilidadeService.getAll();
+	}
+	
+	@GetMapping("/professor/{idProfessor}")
+	public ResponseEntity<ApiResponse> getByidProfessor(@PathVariable Integer idProfessor) {
+		return disponibilidadeService.getByIdProfessor(idProfessor);
+	}
 	
 	@DeleteMapping("/professor/{idProfessor}")	
-	public ResponseEntity<ApiResponse> deleteByIdProfessor(@PathVariable Integer idProfessor){
-		try {
-			return disponibilidadeService.deleteByIdProfessor(idProfessor);
-		} catch (IdNotFoundException e) {
-			e.printStackTrace();
-			return ResponseEntity.internalServerError().body(new ApiResponse(e.getMessage(), null));
-		} catch (ValidationException e) {
-			e.printStackTrace();
-			return ResponseEntity.internalServerError().body(new ApiResponse(e.getMessage(), null));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.internalServerError().body(new ApiResponse("Não foi possivel deletar Disponibilidade, tente novamente", null));
-		}
+	@PreAuthorize("hasAnyAuthority('ACESSO_ADMIN','ACESSO_COORDENADOR')")
+	public ResponseEntity<ApiResponse> deleteByIdProfessor(@PathVariable Integer idProfessor) {
+		return disponibilidadeService.deleteByIdProfessor(idProfessor);
 	}
 	
 	@DeleteMapping("/professor")	
-	public ResponseEntity<ApiResponse> deleteByIdProfessorAnoSemestre(@RequestParam("idProfessor") Integer idProfessor,
-			@RequestParam("ano") Integer ano, @RequestParam("semestre") Integer semestre){
-		try {
-			return disponibilidadeService.deleteByIdProfessorAnoSemestre(idProfessor, semestre, ano);
-		} catch (IdNotFoundException e) {
-			e.printStackTrace();
-			return ResponseEntity.internalServerError().body(new ApiResponse(e.getMessage(), null));
-		} catch (ValidationException e) {
-			e.printStackTrace();
-			return ResponseEntity.internalServerError().body(new ApiResponse(e.getMessage(), null));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.internalServerError().body(new ApiResponse("Não foi possivel deletar Disponibilidade, tente novamente", null));
-		}
+	@PreAuthorize("hasAnyAuthority('ACESSO_ADMIN','ACESSO_COORDENADOR')")
+	public ResponseEntity<ApiResponse> deleteByIdProfessorAnoSemestre(
+			@RequestParam("idProfessor") Integer idProfessor,
+			@RequestParam("ano") Integer ano, 
+			@RequestParam("semestre") Integer semestre) {
+		return disponibilidadeService.deleteByIdProfessorAnoSemestre(idProfessor, semestre, ano);
 	}
-	
 }

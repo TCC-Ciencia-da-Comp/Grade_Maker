@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -36,16 +33,18 @@ public class Usuario implements UserDetails{
 
     private String username;
     private String password;
+    private String email;
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_roles") // Apenas define o nome da tabela intermediária
     private Set<Role> role = new HashSet<>();
 
     
-    public Usuario(String username, String password, Set<Role> roles) {
+    public Usuario(String username, String password, Set<Role> roles, String email) {
         this.username = username;
         this.password = password;
         this.role = roles;
+        this.email = email;
     }
 
     // Getters e Setters omitidos para brevidade
@@ -67,6 +66,10 @@ public class Usuario implements UserDetails{
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     @Override

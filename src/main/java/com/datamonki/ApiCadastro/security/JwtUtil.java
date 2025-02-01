@@ -15,12 +15,13 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret}") // Injetar o valor do arquivo application.properties
+    @Value("${spring.boot.security.jwt.secret}") // Injetar o valor do arquivo application.properties
     private String secret;
 
     private Key secretKey;
 
-    private static final long expirationTime = 1000 * 60 * 60 * 10; // 10 horas em milissegundos
+    @Value("${spring.boot.security.jwt.expiration}")
+    private long expirationTime;
 
     @PostConstruct
     public void init() {

@@ -25,5 +25,8 @@ public class DiaSemana {
 
     @Column
     private String descricao;
+
+    @Column
+    private Integer ativo;
     
 }

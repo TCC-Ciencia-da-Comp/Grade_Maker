@@ -38,4 +38,5 @@ public class Curso {
         inverseJoinColumns = @JoinColumn(name = "id_disciplina")
     )
     private Set<Disciplina> disciplinas;
+    
 }

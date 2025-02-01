@@ -25,5 +25,8 @@ public class Turno {
 
     @Column
     private String descricao;
+
+    @Column
+    private Integer ativo;
     
 }

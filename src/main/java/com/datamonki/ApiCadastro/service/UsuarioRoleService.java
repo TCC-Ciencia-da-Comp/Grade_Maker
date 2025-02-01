@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.datamonki.ApiCadastro.dto.UsuarioDto;
 import com.datamonki.ApiCadastro.dto.UsuarioRoleDto;
 import com.datamonki.ApiCadastro.exceptions.ValidationException;
 import com.datamonki.ApiCadastro.model.Role;

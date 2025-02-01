@@ -1,9 +1,7 @@
 package com.datamonki.ApiCadastro.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.datamonki.ApiCadastro.dto.UsuarioDto;
 import com.datamonki.ApiCadastro.exceptions.ValidationException;
-import com.datamonki.ApiCadastro.model.Role;
 import com.datamonki.ApiCadastro.model.Usuario;
 import com.datamonki.ApiCadastro.repository.UsuarioRepository;
 import com.datamonki.ApiCadastro.response.ApiResponse;

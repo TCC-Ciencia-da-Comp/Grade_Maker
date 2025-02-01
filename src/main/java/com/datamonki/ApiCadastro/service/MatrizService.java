@@ -70,6 +70,18 @@ public class MatrizService {
         Matriz matriz = matrizRepository.findById(id_matriz).get();
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Conexão entre Disciplina e Turma com o id '"+ id_matriz +"' encontrada com sucesso", matriz));
     }
+
+    public ResponseEntity<ApiResponse> getByIdTurma(Integer id_turma) {
+        verificarIdTurma(id_turma);
+        List<Matriz> matrizes = matrizRepository.findByTurmaId(id_turma);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Lista de conexões entre Disciplina e Turma com o id '"+ id_turma +"'", matrizes));
+    }
+
+    public ResponseEntity<ApiResponse> getByIdDisciplina(Integer id_disciplina) {
+        verificarIdDisciplina(id_disciplina);
+        List<Matriz> matrizes = matrizRepository.findByDisciplinaId(id_disciplina);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Lista de conexões entre Disciplina e Turma com o id '"+ id_disciplina +"'", matrizes));
+    }
     
     @Transactional
     public ResponseEntity<ApiResponse> update(Integer id_matriz, MatrizDto matrizDto) {
@@ -98,4 +110,18 @@ public class MatrizService {
         matrizRepository.deleteById(id_matriz);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Conexão entre Disciplina e Turma com o id '"+ id_matriz +"' foi deletada com sucesso", matriz));
     }
+
+    public ResponseEntity<ApiResponse> deleteByIdTurma(Integer id_turma) {
+        verificarIdTurma(id_turma);
+        List<Matriz> matrizes = matrizRepository.findByTurmaId(id_turma);
+        matrizRepository.deleteByTurmaId(id_turma);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Todas as conexões entre Disciplina e Turma com o id '"+ id_turma +"' foram deletadas com sucesso", matrizes));
+    }
+
+    public ResponseEntity<ApiResponse> deleteByIdDisciplina(Integer id_disciplina) {
+        verificarIdDisciplina(id_disciplina);
+        List<Matriz> matrizes = matrizRepository.findByDisciplinaId(id_disciplina);
+        matrizRepository.deleteByDisciplinaId(id_disciplina);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Todas as conexões entre Disciplina e Turma com o id '"+ id_disciplina +"' foram deletadas com sucesso", matrizes));
+    }   
 }
