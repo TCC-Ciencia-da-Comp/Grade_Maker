@@ -65,6 +65,8 @@ CREATE TABLE matriz (
     id SERIAL PRIMARY KEY ,
     id_turma INTEGER,
     id_disciplina INTEGER,
+    ano INTEGER,
+    semestre INTEGER,
     FOREIGN KEY (id_turma) REFERENCES turma(id) ON DELETE CASCADE,
     FOREIGN KEY (id_disciplina) REFERENCES disciplina(id) ON DELETE CASCADE
 );
