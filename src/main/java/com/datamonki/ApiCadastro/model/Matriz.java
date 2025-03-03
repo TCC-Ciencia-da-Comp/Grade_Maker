@@ -24,6 +24,10 @@ public class Matriz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private Integer semestre;
+    
+    private Integer ano;
+    
     @ManyToOne
     @JoinColumn(name = "id_turma", nullable = false)
     private Turma turma;

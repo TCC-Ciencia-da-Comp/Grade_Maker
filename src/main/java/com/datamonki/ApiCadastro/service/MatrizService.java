@@ -55,6 +55,8 @@ public class MatrizService {
         Matriz matriz = new Matriz();
         matriz.setDisciplina(disciplinaRepository.findById(matrizDto.id_disciplina()).get());
         matriz.setTurma(turmaRepository.findById(matrizDto.id_turma()).get());
+        matriz.setSemestre(matrizDto.semestre());
+        matriz.setAno(matrizDto.ano());
 
         matrizRepository.save(matriz);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Conexão entre Disciplina e Turma feita com sucesso", matriz));
@@ -93,7 +95,8 @@ public class MatrizService {
         matriz.setId(id_matriz);
         matriz.setDisciplina(disciplinaRepository.findById(matrizDto.id_disciplina()).get());
         matriz.setTurma(turmaRepository.findById(matrizDto.id_turma()).get());
-
+        matriz.setSemestre(matrizDto.semestre());
+        matriz.setAno(matrizDto.ano());
         matrizRepository.save(matriz);
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Conexão entre Disciplina e Turma com o id '"+ id_matriz +"' atualizada com sucesso", matriz));
     }
