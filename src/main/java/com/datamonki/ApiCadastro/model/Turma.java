@@ -1,5 +1,8 @@
 package com.datamonki.ApiCadastro.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +39,7 @@ public class Turma {
 
     @ManyToOne
     @JoinColumn(name = "id_curso", nullable = false)
+    @JsonIgnoreProperties({"disciplinas"})
     private Curso curso;
 
     @ManyToOne
