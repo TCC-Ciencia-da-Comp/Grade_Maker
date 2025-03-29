@@ -15,6 +15,9 @@ public interface TurmaRepository extends JpaRepository<Turma, Integer> {
        
     // buscar pelo curso
     List<Turma> findByCursoId(Integer id_curso);
+       
+    // buscar pelo nome
+    List<Turma> findByNome(String nome);
 
     // deletar turma pelo idCurso
     @Modifying

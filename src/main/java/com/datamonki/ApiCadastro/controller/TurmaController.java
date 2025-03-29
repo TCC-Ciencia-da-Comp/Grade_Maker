@@ -31,6 +31,11 @@ public class TurmaController {
     public ResponseEntity<ApiResponse> getAll() {
         return turmaService.getAll();
     }
+
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<ApiResponse> getByNome(@PathVariable String nome) {
+        return turmaService.getByNome(nome);
+    }
     
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ACESSO_ADMIN','ACESSO_COORDENADOR')")

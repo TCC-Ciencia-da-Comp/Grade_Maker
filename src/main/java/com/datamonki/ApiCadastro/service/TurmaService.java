@@ -71,7 +71,6 @@ public class TurmaService {
         }
     }
 
-
     @Transactional
     public ResponseEntity<ApiResponse> create(TurmaDto turmaDto){
         verificarIdCurso(turmaDto.id_curso());
@@ -99,10 +98,20 @@ public class TurmaService {
 
         Turma turma = turmaRepository.findById(id_turma).get();
         return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Turma com o id '"+ id_turma +"' encontrada com sucesso", turma));        
+    }   
+
+    public ResponseEntity<ApiResponse> getByNome(String nome){
+        if (turmaRepository.findByNome(nome).isEmpty()) {
+            throw new IdNotFoundException("Não foi possivel encontrar turma com o nome '" + nome + "', verifique e tente novamente"); 
+        }
+
+        List<Turma> turmas = turmaRepository.findByNome(nome);
+        return ResponseEntity.status(HttpStatus.OK).body(new ApiResponse("Lista de turmas com o nome '" + nome + "' encontradas com sucesso", turmas));
     }
 
     @Transactional
     public ResponseEntity<ApiResponse> update(Integer id_turma, TurmaDto turmaDto){
+        verificarIdTurma(id_turma);
         verificarIdCurso(turmaDto.id_curso());
         verificarIdTurno(turmaDto.id_turno());
         verificar(turmaDto);
