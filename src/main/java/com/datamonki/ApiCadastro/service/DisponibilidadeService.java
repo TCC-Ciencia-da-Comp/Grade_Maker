@@ -143,7 +143,11 @@ public class DisponibilidadeService {
 
 		return ResponseEntity.ok(new ApiResponse("Sem disponibilidades cadastradas", null));
 	}
-	
-	
+
+	public ResponseEntity<ApiResponse> deleteAll(){
+		List<Disponibilidade> disponibilidades = disponibilidadeRepository.findAll();
+		disponibilidadeRepository.deleteAll();
+		return ResponseEntity.ok(new ApiResponse("Disponibilidades deletadas com sucesso", disponibilidades));
+	}	
 	
 }

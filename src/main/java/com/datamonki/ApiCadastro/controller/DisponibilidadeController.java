@@ -64,4 +64,10 @@ public class DisponibilidadeController {
 			@RequestParam("semestre") Integer semestre) {
 		return disponibilidadeService.deleteByIdProfessorAnoSemestre(idProfessor, semestre, ano);
 	}
+
+	@DeleteMapping
+	@PreAuthorize("hasAnyAuthority('ACESSO_ADMIN','ACESSO_COORDENADOR')")
+	public ResponseEntity<ApiResponse> deleteAll() {
+		return disponibilidadeService.deleteAll();
+	}
 }
